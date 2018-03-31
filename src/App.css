@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+#editor {
+    width: 100vw;
+    height: 100vh;
+}
+
+#editor .sidebar {
+    background-color: #f0f2f5;
+}
+
+#editor .main {
+    background: transparent;
+}
