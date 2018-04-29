@@ -1,9 +1,17 @@
 import { Step, STEP_TYPE } from '../definitions/steps';
 import { filter1 } from './steps/filter1';
 import { loadImage } from './steps/loadImage';
+import { filter2 } from './steps/filter2';
+import { filter3 } from './steps/filter3';
+import { filter4 } from './steps/filter4';
+import { filter5 } from './steps/filter5';
 
 const stepToFunction = {
-	[STEP_TYPE.FILTER_1]: filter1,
+	[STEP_TYPE.GRAYSCALE_1]: filter1,
+	[STEP_TYPE.COLOR_1]: filter2,
+	[STEP_TYPE.COLOR_2]: filter3,
+	[STEP_TYPE.COLOR_3]: filter4,
+	[STEP_TYPE.COLOR_4]: filter5,
 	[STEP_TYPE.LOAD_IMAGE]: loadImage,
 };
 

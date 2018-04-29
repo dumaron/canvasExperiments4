@@ -60,7 +60,7 @@ export const parametersData = {
 	},
 	[PARAMETER_TYPE.INTEGER]: {
 		min: 0,
-		max: 1024,
+		max: 100,
 		default: 0,
 		random: randIntCurry(1024),
 	},
@@ -82,11 +82,14 @@ export const parametersData = {
 	}
 };
 
-export function generateParameter(name: string, type: PARAMETER_TYPE): Parameter {
+export function generateParameter(
+	name: string,
+	type: PARAMETER_TYPE,
+	value?: any): Parameter {
 	return  {
 		type,
 		name,
 		random: false,
-		value: parametersData[type].default
+		value: value !== undefined ? value : parametersData[type].default
 	} as any;
 }

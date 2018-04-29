@@ -6,6 +6,7 @@ interface Props {
 	steps: Step[];
 	setter: Function;
 	enabler: Function;
+	remover: Function;
 }
 
 function bindToIndex(f: Function, i: number) {
@@ -20,6 +21,8 @@ export const StepList = (props: Props) => (
 					step={step}
 					setter={bindToIndex(props.setter, i)}
 					enabler={bindToIndex(props.enabler, i)}
+					remover={bindToIndex(props.remover, i)}
+					first={i === 0}
 				/>
 			</div>
 		)) }

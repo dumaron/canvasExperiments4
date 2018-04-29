@@ -1,10 +1,12 @@
 import { Parameter, generateParameter, PARAMETER_TYPE } from './parameters';
 
 export enum STEP_TYPE {
-	LOAD_IMAGE,
-	FILTER_1,
-	FILTER_2,
-	FILTER_3,
+	LOAD_IMAGE = 'LOAD_IMAGE',
+	GRAYSCALE_1 = 'GRAYSCALE_1',
+	COLOR_1 = 'COLOR_1',
+	COLOR_2 = 'COLOR_2',
+	COLOR_3 = 'COLOR_3',
+	COLOR_4 = 'COLOR_4',
 }
 
 export interface Step {
@@ -19,11 +21,27 @@ function generateParameters(type: STEP_TYPE): Parameter[] {
 			return [
 				generateParameter('image', PARAMETER_TYPE.IMAGE),
 			];
-		case STEP_TYPE.FILTER_1:
+		case STEP_TYPE.GRAYSCALE_1:
 			return [
 				generateParameter('minOrMax', PARAMETER_TYPE.BOOLEAN),
+				generateParameter('coefficient', PARAMETER_TYPE.INTEGER),
 			];
-		default: return [];
+		case STEP_TYPE.COLOR_1:
+			return [
+				generateParameter('minOrMax', PARAMETER_TYPE.BOOLEAN),
+				generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 50),
+				generateParameter('multiplier', PARAMETER_TYPE.PERCENTAGE, 75),
+			];
+		case STEP_TYPE.COLOR_3:
+			return [
+				generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 20),
+			];
+		case STEP_TYPE.COLOR_4:
+			return [
+				generateParameter('total', PARAMETER_TYPE.PERCENTAGE, 50),
+			];
+		default:
+			return [];
 	}
 }
 

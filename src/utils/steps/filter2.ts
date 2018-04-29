@@ -1,20 +1,15 @@
 import { Parameter } from '../../definitions/parameters';
 import { get } from '../steps';
 
-export async function filter1(canvas: HTMLCanvasElement, parameters: Parameter[]) {
+export async function filter2(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	const w = canvas.width;
 	const h = canvas.height;
 	const context = canvas.getContext('2d');
-
 	const useMax = get('minOrMax', parameters);
-	const coefficient = get('coefficient',parameters) as number;
-
+	const limit = get('limit', parameters) as number;
+	const mul = get('multiplier', parameters) as number;
 	const policy = useMax ? Math.max : Math.min;
-	const mul = coefficient === 0
-		? 1
-		: 5 * coefficient / 100;
-
-	let parsed, i;
+	let parsed, i, tmp;
 
 	if (!context) {
 		throw new Error('Missing context');
@@ -25,7 +20,9 @@ export async function filter1(canvas: HTMLCanvasElement, parameters: Parameter[]
 
 	for (i=0; i < pixels.length; i += 4) {
 		parsed = policy(pixels[i], pixels[i+1], pixels[i+2]);
-		pixels[i] = pixels[i+1] = pixels[i+2] = Math.min(parsed * mul, 255);
+		tmp = Math.floor(Math.min(255, mul / 100 * 255 + parsed));
+		pixels[i+2] = pixels[i+1] = parsed;
+		pixels[i] = parsed > limit * 255/100 ? tmp : parsed;
 	}
 
 	context.putImageData(img, 0, 0);

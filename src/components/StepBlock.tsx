@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Switch } from 'antd';
+import { Card, Switch, Icon } from 'antd';
 import { Step, STEP_TYPE } from '../definitions/steps';
 import { Parameter, PARAMETER_TYPE } from '../definitions/parameters';
 import { ImageParameterBlock } from './parameters/ImageParameterBlock';
@@ -10,6 +10,8 @@ interface Props {
 	step: Step;
 	setter: Function;
 	enabler: Function;
+	remover: Function;
+	first?: boolean;
 }
 
 function switchParameterBlock(p: Parameter, setter: Function) {
@@ -32,12 +34,17 @@ function switchParameterBlock(p: Parameter, setter: Function) {
 
 export class StepBlock extends React.Component<Props> {
 	render() {
-		const {step, setter, enabler} = this.props;
+		const {step, setter, enabler, first, remover} = this.props;
 
 		return (
 			<Card
 				title={STEP_TYPE[step.type]}
-				extra={<Switch checked={!step.disabled} onChange={() => enabler(!step.disabled)}  />}
+				extra={!first && <Switch checked={!step.disabled} onChange={() => enabler(!step.disabled)} />}
+				actions={first ? undefined : [
+					<Icon type="caret-up" key={1}/>,
+					<Icon type="close" key={2} onClick={() => remover()}/>,
+					<Icon type="caret-down" key={3}/>,
+				]}
 			>
 				{step.parameters.map(p => switchParameterBlock(p, setter))}
 			</Card>
