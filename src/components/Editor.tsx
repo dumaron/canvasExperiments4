@@ -1,32 +1,20 @@
-import * as React from 'react';
-import { Row, Col, Button, Modal, Select } from 'antd';
+import React from 'react';
 import { generateStep, Step, STEP_TYPE } from '../definitions/steps';
-import { StepList } from './StepList';
 import { runSequence } from '../utils/engine';
+import { Sidebar } from './Sidebar';
 
-const Option = Select.Option;
-
-interface Props {
-}
+interface EditorProps {}
 
 interface State {
 	steps: Step[];
-	addStepModalOpen: boolean;
-	addStepSelectValue: STEP_TYPE;
 }
 
-export class Editor extends React.Component<Props, State> {
-
-	constructor(props: Props) {
+export class Editor extends React.PureComponent<EditorProps, State> {
+	constructor(props: EditorProps) {
 		super(props);
 
 		this.state = {
-			steps: [
-				generateStep(STEP_TYPE.LOAD_IMAGE),
-				generateStep(STEP_TYPE.GRAYSCALE_1),
-			],
-			addStepModalOpen: false,
-			addStepSelectValue: STEP_TYPE.GRAYSCALE_1
+			steps: [generateStep(STEP_TYPE.LOAD_IMAGE)],
 		};
 	}
 
@@ -34,19 +22,17 @@ export class Editor extends React.Component<Props, State> {
 		const { steps } = this.state;
 		const newSteps = steps.map((step, i) => {
 			if (i === index) {
-
 				// maybe use a more functional approach?
-				const parameter = step.parameters.find(p => p.name === parameterName);
+				const parameter = step.parameters.find((p) => p.name === parameterName);
 				if (parameter) {
 					parameter.value = value;
 				}
-
 			}
 			return step;
 		});
 
 		this.setState({ steps: newSteps });
-	}
+	};
 
 	enabler = (index: number, disabled: boolean) => {
 		const { steps } = this.state;
@@ -59,30 +45,29 @@ export class Editor extends React.Component<Props, State> {
 		});
 
 		this.setState({ steps: newSteps });
-	}
+	};
 
 	generate = () => {
 		const c = document.getElementById('canvas') as HTMLCanvasElement;
 		runSequence(c, this.state.steps);
-	}
+	};
 
-	addStep = () => {
-		const {steps, addStepSelectValue} = this.state;
+	addStep = (stepType: STEP_TYPE) => {
+		const { steps } = this.state;
 		this.setState({
-			steps: steps.concat([ generateStep(addStepSelectValue)]),
-			addStepModalOpen: false,
+			steps: steps.concat([generateStep(stepType)]),
 		});
-	}
+	};
 
 	removeStep = (index: number) => {
-		const {steps} = this.state;
+		const { steps } = this.state;
 		this.setState({
-			steps: steps.filter((e, i) => i !== index)
+			steps: steps.filter((e, i) => i !== index),
 		});
-	}
+	};
 
 	render() {
-		const { steps, addStepModalOpen, addStepSelectValue } = this.state;
+		const { steps } = this.state;
 
 		const types = [];
 		for (let item in STEP_TYPE) {
@@ -93,52 +78,17 @@ export class Editor extends React.Component<Props, State> {
 
 		return (
 			<div id="editor">
-				<Modal
-					title="Add step"
-					visible={addStepModalOpen}
-					onOk={() => this.addStep()}
-					onCancel={() => this.setState({ addStepModalOpen: !addStepModalOpen })}
-				>
-					<Select
-						onChange={(t: STEP_TYPE) => this.setState({ addStepSelectValue: t})}
-						value={STEP_TYPE[addStepSelectValue]}
-						style={{ width: '100%' }}
-					>
-						{types
-							.map(k => (
-								<Option key={k} value={k}>{k}</Option>
-							))}
-					</Select>
-				</Modal>
-				<Row>
-					<Col span={5}>
-						<div>
-							<Button
-								type="primary"
-								icon={'plus'}
-								onClick={() => this.setState({ addStepModalOpen: true })}
-							>
-								Add Step
-							</Button>
-							<Button
-								type={'primary'}
-								icon={'caret-right'}
-								onClick={() => this.generate()}
-							>
-								Run
-							</Button>
-						</div>
-						<StepList
-							steps={steps}
-							setter={this.setter}
-							enabler={this.enabler}
-							remover={this.removeStep}
-						/>
-					</Col>
-					<Col span={19}>
-						<canvas id="canvas"/>
-					</Col>
-				</Row>
+				<Sidebar
+					run={this.generate}
+					steps={steps}
+					add={this.addStep}
+					setter={this.setter}
+					toggler={this.enabler}
+					remover={this.removeStep}
+				/>
+				<div>
+					<canvas id="canvas" />
+				</div>
 			</div>
 		);
 	}

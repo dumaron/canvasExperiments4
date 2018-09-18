@@ -1,4 +1,4 @@
-import { ImageParameter, Parameter } from '../../definitions/parameters';
+import { ImageParameter, Parameter } from '../definitions/parameters';
 
 export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	return new Promise(function(resolve: Function, reject: Function) {
@@ -11,7 +11,7 @@ export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter
 		}
 
 		reader.onload = function() {
-			img.src = reader.result;
+			img.src = reader.result as string;
 		};
 
 		img.onload = function() {

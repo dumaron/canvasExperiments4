@@ -1,5 +1,5 @@
-import { Parameter } from '../../definitions/parameters';
-import { get } from '../steps';
+import { Parameter } from '../definitions/parameters';
+import { get } from '../utils/steps';
 
 export async function filter2(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	const w = canvas.width;

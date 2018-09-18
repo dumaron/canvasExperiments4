@@ -1,10 +1,13 @@
 import { Step, STEP_TYPE } from '../definitions/steps';
-import { filter1 } from './steps/filter1';
-import { loadImage } from './steps/loadImage';
-import { filter2 } from './steps/filter2';
-import { filter3 } from './steps/filter3';
-import { filter4 } from './steps/filter4';
-import { filter5 } from './steps/filter5';
+import { filter1 } from '../steps/filter1';
+import { loadImage } from '../steps/loadImage';
+import { filter2 } from '../steps/filter2';
+import { filter3 } from '../steps/filter3';
+import { filter4 } from '../steps/filter4';
+import { filter5 } from '../steps/filter5';
+import { squares1 } from '../steps/squares1';
+import { squares2 } from '../steps/squares2';
+import { squares3 } from '../steps/squares3';
 
 const stepToFunction = {
 	[STEP_TYPE.GRAYSCALE_1]: filter1,
@@ -13,14 +16,17 @@ const stepToFunction = {
 	[STEP_TYPE.COLOR_3]: filter4,
 	[STEP_TYPE.COLOR_4]: filter5,
 	[STEP_TYPE.LOAD_IMAGE]: loadImage,
+	[STEP_TYPE.SQUARES_1]: squares1,
+	[STEP_TYPE.SQUARES_2]: squares2,
+	[STEP_TYPE.SQUARES_3]: squares3,
 };
 
 export async function runSequence(canvas: HTMLCanvasElement, steps: Step[]) {
 	let i, f, step;
 
-	const stepsEnabled = steps.filter(s => !s.disabled);
+	const stepsEnabled = steps.filter((s) => !s.disabled);
 
-	for (i=0; i<stepsEnabled.length; i++) {
+	for (i = 0; i < stepsEnabled.length; i++) {
 		step = stepsEnabled[i];
 		f = stepToFunction[step.type];
 

@@ -1,4 +1,4 @@
-import { Parameter } from '../../definitions/parameters';
+import { Parameter } from '../definitions/parameters';
 
 export async function filter3(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	const w = canvas.width;

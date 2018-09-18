@@ -1,25 +1,25 @@
 import * as React from 'react';
-import { Form, Slider } from 'antd';
-import { IntegerParameter, parametersData, PercentageParameter } from '../../definitions/parameters';
+import {
+	IntegerParameter,
+	parametersData,
+	PercentageParameter,
+} from '../../definitions/parameters';
 
-interface Props {
+interface IntegerParameterBlockProps {
 	parameter: IntegerParameter | PercentageParameter;
 	setter: Function;
 }
 
-export const IntegerParameterBlock = ({ parameter, setter }: Props) => {
-	const { min, max } = parametersData[ parameter.type ];
+export const IntegerParameterBlock = ({ parameter, setter }: IntegerParameterBlockProps) => {
+	const { min, max } = parametersData[parameter.type];
 
 	return (
-		<Form.Item
-			label={parameter.name}
-		>
-			<Slider
-				value={parameter.value}
-				min={min}
-				max={max}
-				onChange={value => setter(parameter.name, value)}
-			/>
-		</Form.Item>
+		<input
+			type="number"
+			value={parameter.value}
+			min={min}
+			max={max}
+			onChange={(event) => setter(parameter.name, event.target.value)}
+		/>
 	);
 };

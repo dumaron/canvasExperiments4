@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Step } from '../definitions/steps';
 import { StepBlock } from './StepBlock';
 
@@ -15,7 +15,7 @@ function bindToIndex(f: Function, i: number) {
 
 export const StepList = (props: Props) => (
 	<div className="step-list">
-		{ props.steps.map((step, i) => (
+		{props.steps.map((step, i) => (
 			<div key={i} className={'step'}>
 				<StepBlock
 					step={step}
@@ -25,6 +25,6 @@ export const StepList = (props: Props) => (
 					first={i === 0}
 				/>
 			</div>
-		)) }
+		))}
 	</div>
 );

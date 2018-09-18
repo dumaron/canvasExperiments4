@@ -1,11 +1,11 @@
-import { Parameter } from '../../definitions/parameters';
-import { get } from '../steps';
+import { Parameter } from '../definitions/parameters';
+import { get } from '../utils/steps';
 
-export async function filter5(canvas: HTMLCanvasElement, parameters: Parameter[]) {
+export async function filter4(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	const w = canvas.width;
 	const h = canvas.height;
 	const context = canvas.getContext('2d');
-	const total = get('total', parameters) as number;
+	const limit = get('limit', parameters) as number;
 	let i, distance;
 
 	if (!context) {
@@ -17,7 +17,7 @@ export async function filter5(canvas: HTMLCanvasElement, parameters: Parameter[]
 
 	for (i=0; i < pixels.length; i += 4) {
 		distance = ((pixels[i] - pixels[i + 1]) + (pixels[i] - pixels[i + 2])) / 2;
-		pixels[i] += distance * (total+ 1) / 100;
+		pixels[i] *= distance > limit ? 1.1 : .9;
 	}
 
 	context.putImageData(img, 0, 0);

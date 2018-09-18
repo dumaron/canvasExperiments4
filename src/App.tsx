@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import './App.css';
 import { Editor } from './components/Editor';
 
-class App extends React.Component {
-	render() {
+class App extends React.PureComponent {
+	public render() {
 		return (
 			<div id="App">
-				<Editor/>
+				<Editor />
 			</div>
 		);
 	}

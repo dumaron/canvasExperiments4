@@ -7,6 +7,9 @@ export enum STEP_TYPE {
 	COLOR_2 = 'COLOR_2',
 	COLOR_3 = 'COLOR_3',
 	COLOR_4 = 'COLOR_4',
+	SQUARES_1 = 'SQUARES_1',
+	SQUARES_2 = 'SQUARES_2',
+  SQUARES_3 = 'SQUARES_3',
 }
 
 export interface Step {
@@ -18,9 +21,7 @@ export interface Step {
 function generateParameters(type: STEP_TYPE): Parameter[] {
 	switch (type) {
 		case STEP_TYPE.LOAD_IMAGE:
-			return [
-				generateParameter('image', PARAMETER_TYPE.IMAGE),
-			];
+			return [generateParameter('image', PARAMETER_TYPE.IMAGE)];
 		case STEP_TYPE.GRAYSCALE_1:
 			return [
 				generateParameter('minOrMax', PARAMETER_TYPE.BOOLEAN),
@@ -33,14 +34,19 @@ function generateParameters(type: STEP_TYPE): Parameter[] {
 				generateParameter('multiplier', PARAMETER_TYPE.PERCENTAGE, 75),
 			];
 		case STEP_TYPE.COLOR_3:
-			return [
-				generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 20),
-			];
+			return [generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 20)];
 		case STEP_TYPE.COLOR_4:
-			return [
-				generateParameter('total', PARAMETER_TYPE.PERCENTAGE, 50),
-			];
-		default:
+			return [generateParameter('total', PARAMETER_TYPE.PERCENTAGE, 50)];
+		case STEP_TYPE.SQUARES_1:
+			return [generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 40)];
+    case STEP_TYPE.SQUARES_2:
+      return [generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 40)];
+    case STEP_TYPE.SQUARES_3:
+      return [
+        generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 80),
+        generateParameter('step', PARAMETER_TYPE.PERCENTAGE, 50)
+      ];
+    default:
 			return [];
 	}
 }
@@ -49,6 +55,6 @@ export function generateStep(type: STEP_TYPE): Step {
 	return {
 		type,
 		disabled: false,
-		parameters: generateParameters(type)
+		parameters: generateParameters(type),
 	};
 }
