@@ -3,7 +3,7 @@ import { ImageParameter, Parameter } from '../definitions/parameters';
 export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	return new Promise(function(resolve: Function, reject: Function) {
 		const reader = new FileReader();
-		const file = parameters.find(p => p.name === 'image') as ImageParameter;
+		const file = parameters.find((p) => p.name === 'image') as ImageParameter;
 		const img = new Image();
 
 		if (!file) {
@@ -19,7 +19,7 @@ export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter
 
 			if (!context) {
 				reject(new Error('No canvas context'));
-				return ;
+				return;
 			}
 
 			canvas.width = img.width;
@@ -31,5 +31,4 @@ export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter
 
 		reader.readAsDataURL(file.value as Blob);
 	});
-
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+
 import { Step } from '../definitions/steps';
 import { StepBlock } from './StepBlock';
 
@@ -7,24 +9,33 @@ interface Props {
 	setter: Function;
 	enabler: Function;
 	remover: Function;
+	changeOrder: (...args: any[]) => void;
 }
 
 function bindToIndex(f: Function, i: number) {
 	return (...args: any[]) => f(i, ...args);
 }
 
-export const StepList = (props: Props) => (
-	<div className="step-list">
-		{props.steps.map((step, i) => (
-			<div key={i} className={'step'}>
+const SortableItem = SortableElement(({ children }) => children);
+
+const StepListBase = SortableContainer(({ steps, setter, enabler, remover }: Props) => (
+	<div>
+		{steps.map((step, i) => (
+			<SortableItem key={i} index={i}>
 				<StepBlock
 					step={step}
-					setter={bindToIndex(props.setter, i)}
-					enabler={bindToIndex(props.enabler, i)}
-					remover={bindToIndex(props.remover, i)}
-					first={i === 0}
+					setter={bindToIndex(setter, i)}
+					enabler={bindToIndex(enabler, i)}
+					remover={bindToIndex(remover, i)}
 				/>
-			</div>
+			</SortableItem>
 		))}
 	</div>
-);
+));
+
+export class StepList extends React.Component<Props, {}> {
+	render() {
+		const { changeOrder } = this.props;
+		return <StepListBase {...this.props} onSortEnd={changeOrder} />;
+	}
+}

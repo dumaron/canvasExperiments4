@@ -1,16 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import { Step, STEP_TYPE } from '../definitions/steps';
 import { Parameter, PARAMETER_TYPE } from '../definitions/parameters';
 import { ImageParameterBlock } from './parameters/ImageParameterBlock';
 import { IntegerParameterBlock } from './parameters/IntegerParameterBlock';
 import { BooleanParameterBlock } from './parameters/BooleanParameterBlock';
+import { claraThemeType } from '../utils/theme';
+import { registerClass } from '../utils/css-manager';
+import { Button } from './ui/Button';
 
 interface StepBlockProps {
 	step: Step;
 	setter: (value: any) => void;
-	enabler: Function;
-	remover: Function;
-	first?: boolean;
+	enabler: (enable: boolean) => void;
+	remover: () => void;
 }
 
 interface StepBlockState {
@@ -38,6 +40,16 @@ function switchParameterBlock(p: Parameter, setter: Function) {
 	}
 }
 
+const stepBlockClass = registerClass(
+	(t: claraThemeType) => `
+  padding: ${t.basePadding}rem;
+  margin: ${t.basePadding * t.ratios.s}rem;
+  background-color: ${t.blockColor};
+  border: 1px solid ${t.activeColor};
+  user-select: none;
+`,
+);
+
 export class StepBlock extends React.Component<StepBlockProps, StepBlockState> {
 	constructor(props: StepBlockProps) {
 		super(props);
@@ -48,12 +60,17 @@ export class StepBlock extends React.Component<StepBlockProps, StepBlockState> {
 	}
 
 	render() {
-		const { step, setter } = this.props;
+		const { step, setter, remover, enabler } = this.props;
+		const { disabled } = step;
 
 		return (
-			<div>
+			<div className={stepBlockClass}>
 				{STEP_TYPE[step.type]}
 				{step.parameters.map((p) => switchParameterBlock(p, setter))}
+				<div>
+					<Button onClick={remover}>Remove</Button>
+					<Button onClick={() => enabler(!disabled)}>{disabled ? 'Enable' : 'Disable'}</Button>
+				</div>
 			</div>
 		);
 	}

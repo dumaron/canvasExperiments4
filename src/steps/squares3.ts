@@ -26,13 +26,12 @@ export async function squares3(canvas: HTMLCanvasElement, parameters: Parameter[
 			diffB = Math.abs(pixels[index + 2] - pixels[nextIndex + 2]);
 			avgDiff = avg([diffB, diffG, diffR]);
 
-			console.log(avgDiff);
 			// if (avgDiff > c1) {
 				squares.push({
 					x: Math.floor(x),
 					y: Math.floor(y),
 					size: m2,
-					color: pixelToHex(diffR, diffG, diffB),
+					color: pixelToHex(avgDiff ** 2, avgDiff, avgDiff),
 				});
 			// }
 		}
