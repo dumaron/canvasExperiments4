@@ -10,6 +10,8 @@ export enum STEP_TYPE {
 	SQUARES_1 = 'SQUARES_1',
 	SQUARES_2 = 'SQUARES_2',
   SQUARES_3 = 'SQUARES_3',
+  SQUARES_4 = 'SQUARES_4',
+  LINES_1 = 'LINES_1',
 }
 
 export interface Step {
@@ -46,6 +48,10 @@ function generateParameters(type: STEP_TYPE): Parameter[] {
         generateParameter('limit', PARAMETER_TYPE.PERCENTAGE, 80),
         generateParameter('step', PARAMETER_TYPE.PERCENTAGE, 50)
       ];
+    case STEP_TYPE.SQUARES_4:
+      return [generateParameter('divider', PARAMETER_TYPE.INTEGER, 100)];
+    case STEP_TYPE.LINES_1:
+      return [generateParameter('divider', PARAMETER_TYPE.INTEGER, 100)];
     default:
 			return [];
 	}

@@ -7,6 +7,7 @@ import { BooleanParameterBlock } from './parameters/BooleanParameterBlock';
 import { claraThemeType } from '../utils/theme';
 import { registerClass } from '../utils/css-manager';
 import { Button } from './ui/Button';
+import { t } from '../utils/labels';
 
 interface StepBlockProps {
 	step: Step;
@@ -41,12 +42,14 @@ function switchParameterBlock(p: Parameter, setter: Function) {
 }
 
 const stepBlockClass = registerClass(
-	(t: claraThemeType) => `
+	(t: claraThemeType, sc) => `
   padding: ${t.basePadding}rem;
   margin: ${t.basePadding * t.ratios.s}rem;
-  background-color: ${t.blockColor};
-  border: 1px solid ${t.activeColor};
+  background-color: ${t.backgroundColor};
   user-select: none;
+  z-index: 2;
+  color: ${t.ink};
+  font-family: "Exo", sans-serif;
 `,
 );
 
@@ -65,7 +68,7 @@ export class StepBlock extends React.Component<StepBlockProps, StepBlockState> {
 
 		return (
 			<div className={stepBlockClass}>
-				{STEP_TYPE[step.type]}
+				{t(STEP_TYPE[step.type])}
 				{step.parameters.map((p) => switchParameterBlock(p, setter))}
 				<div>
 					<Button onClick={remover}>Remove</Button>

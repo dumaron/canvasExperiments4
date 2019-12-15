@@ -45,6 +45,8 @@ export const classNames = (...args: (string | null | undefined)[]) => {
 	return args.filter((a) => a !== null && a !== undefined).join(' ');
 };
 
+export const scBind = (orig: string) => (...s: string[]) => subClass(orig, ...s);
+
 export function subClass(...classes: string[]): string {
 	return classes.join('-');
 }

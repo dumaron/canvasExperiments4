@@ -8,6 +8,8 @@ import { filter5 } from '../steps/filter5';
 import { squares1 } from '../steps/squares1';
 import { squares2 } from '../steps/squares2';
 import { squares3 } from '../steps/squares3';
+import { lines1 } from '../steps/lines1';
+import { squares4 } from '../steps/squares4';
 
 const stepToFunction = {
 	[STEP_TYPE.GRAYSCALE_1]: filter1,
@@ -19,6 +21,8 @@ const stepToFunction = {
 	[STEP_TYPE.SQUARES_1]: squares1,
 	[STEP_TYPE.SQUARES_2]: squares2,
 	[STEP_TYPE.SQUARES_3]: squares3,
+	[STEP_TYPE.SQUARES_4]: squares4,
+	[STEP_TYPE.LINES_1]: lines1,
 };
 
 export async function runSequence(canvas: HTMLCanvasElement, steps: Step[]) {
