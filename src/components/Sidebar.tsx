@@ -53,6 +53,15 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 					<Button onClick={() => zoom(false)}>Zoom out</Button>
 					<Button onClick={() => zoom(true)}>Zoom in</Button>
 				</div>
+
+				<StepList
+					steps={steps}
+					setter={setter}
+					enabler={toggler}
+					remover={remover}
+					changeOrder={changeOrder}
+				/>
+
 				<div>
 					<Select
 						choices={[
@@ -71,13 +80,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 					/>
 					<Button onClick={() => add(addStepSelectValue)}>Add</Button>
 				</div>
-				<StepList
-					steps={steps}
-					setter={setter}
-					enabler={toggler}
-					remover={remover}
-					changeOrder={changeOrder}
-				/>
 			</div>
 		);
 	}

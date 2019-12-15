@@ -19,6 +19,7 @@ export async function squares1(
 	for (y = 0; y <= h; y += magicNumber) {
 		for (x = 0; x <= w; x += magicNumber) {
 			index = getIndex(x, y, w);
+			console.log(pixels[index]);
 			context.fillStyle = pixelToHex(
 				pixels[index],
 				pixels[index + 1],

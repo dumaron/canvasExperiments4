@@ -25,7 +25,7 @@ export async function loadImage(canvas: HTMLCanvasElement, parameters: Parameter
 			canvas.width = img.width;
 			canvas.height = img.height;
 
-			context.drawImage(img, 0, 0);
+			context.drawImage(img,0,0);
 			resolve();
 		};
 

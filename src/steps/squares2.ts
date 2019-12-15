@@ -20,6 +20,9 @@ export async function squares2(
 		for (x = 0; x <= w; x += magicNumber) {
 		  m2 = magicNumber * 4 * Math.random();
 			index = getIndex(x, y, w);
+			if (index +2 > pixels.length) {
+				break;
+			}
 			context.fillStyle = pixelToHex(
 				pixels[index],
 				pixels[index + 1],

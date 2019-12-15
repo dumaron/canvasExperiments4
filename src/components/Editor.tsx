@@ -15,8 +15,6 @@ interface State {
 const style = registerClass(
 	() => `
 	display: flex;
-	justify-content: center;
-	align-items: center;
 `,
 );
 
@@ -110,6 +108,8 @@ export class Editor extends React.PureComponent<EditorProps, State> {
 			}
 		}
 
+		console.log(zoom);
+
 		return (
 			<div id="editor" className={style}>
 				<Sidebar
@@ -123,7 +123,7 @@ export class Editor extends React.PureComponent<EditorProps, State> {
 					zoom={this.zoom}
 				/>
 				<div>
-					<canvas id="canvas" style={{ zoom }} />
+					<canvas id="canvas" />
 				</div>
 			</div>
 		);
