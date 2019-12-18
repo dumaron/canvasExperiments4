@@ -2,7 +2,7 @@ import { Parameter } from '../definitions/parameters';
 import { get } from '../utils/steps';
 import { getIndex, pixelToHex } from '../utils/misc';
 
-export async function squares4(canvas: HTMLCanvasElement, parameters: Parameter[]) {
+export async function squares5(canvas: HTMLCanvasElement, parameters: Parameter[]) {
 	const w = canvas.width;
 	const h = canvas.height;
 	const context = canvas.getContext('2d');
@@ -17,12 +17,12 @@ export async function squares4(canvas: HTMLCanvasElement, parameters: Parameter[
 		for (x = 0; x <= w; x += magicNumber) {
 			index = getIndex(x, y, w);
 			if (!pixels[index] || !pixels[index + 1] || !pixels[index + 2]) continue;
+			context.save();
 			context.fillStyle = pixelToHex(pixels[index], pixels[index + 1], pixels[index + 2]);
-			context.translate(x + c1 / 2, y + c1 / 2);
-			context.rotate(45);
+			context.translate(x, y);
+			context.rotate(Math.random() * 45);
 			context.fillRect(0, 0, c1, c1);
-			context.rotate(0);
-			context.translate(0, 0);
+			context.restore();
 		}
 	}
 }

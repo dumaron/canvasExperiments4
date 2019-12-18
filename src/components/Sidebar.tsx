@@ -74,6 +74,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 							{ label: 'Squares 2', value: STEP_TYPE.SQUARES_2 },
 							{ label: 'Squares 3', value: STEP_TYPE.SQUARES_3 },
 							{ label: 'Squares 4', value: STEP_TYPE.SQUARES_4 },
+							{ label: 'Squares 5', value: STEP_TYPE.SQUARES_5 },
 							{ label: 'Lines 1', value: STEP_TYPE.LINES_1 },
 						]}
 						onChange={(v) => this.setState({ addStepSelectValue: v as STEP_TYPE })}

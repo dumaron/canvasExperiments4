@@ -1,6 +1,5 @@
 import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-
 import { Step } from '../definitions/steps';
 import { StepBlock } from './StepBlock';
 

@@ -19,7 +19,7 @@ const buttonClass = registerClass(
 `,
 );
 
-export const Button: React.SFC<ButtonProps> = ({ children, onClick }) => (
+export const Button: React.FC<ButtonProps> = ({ children, onClick }) => (
 	<button className={buttonClass} onClick={onClick}>
 		{children}
 	</button>

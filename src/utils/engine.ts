@@ -10,6 +10,7 @@ import { squares2 } from '../steps/squares2';
 import { squares3 } from '../steps/squares3';
 import { lines1 } from '../steps/lines1';
 import { squares4 } from '../steps/squares4';
+import { squares5 } from '../steps/squares5';
 
 const stepToFunction = {
 	[STEP_TYPE.GRAYSCALE_1]: filter1,
@@ -22,6 +23,7 @@ const stepToFunction = {
 	[STEP_TYPE.SQUARES_2]: squares2,
 	[STEP_TYPE.SQUARES_3]: squares3,
 	[STEP_TYPE.SQUARES_4]: squares4,
+	[STEP_TYPE.SQUARES_5]: squares5,
 	[STEP_TYPE.LINES_1]: lines1,
 };
 
